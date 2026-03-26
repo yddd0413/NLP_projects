@@ -1,5 +1,7 @@
 import streamlit as st
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.decomposition import TruncatedSVD
@@ -10,8 +12,15 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 import warnings
 warnings.filterwarnings('ignore')
 
-nltk.download('punkt', quiet=True)
-nltk.download('punkt_tab', quiet=True)
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt', quiet=True)
+
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt_tab', quiet=True)
 
 st.set_page_config(page_title="NLP文本表示工具", layout="wide")
 
